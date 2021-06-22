@@ -8,7 +8,7 @@
 
 
 
-<div>
+<div class="footer">
  SOY EL FOOTER
 
 </div>

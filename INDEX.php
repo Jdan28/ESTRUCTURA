@@ -3,7 +3,7 @@
 <head>
 <title>Página Principal test</title>
 <meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="assents/css/calendario.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="RES/CSS/STYLE.css" media="all" />
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 --><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="JS/FUNCIONES.JS"></script>
@@ -18,8 +18,11 @@ $e_FOOTER= 'CONTROLLERS/FOOTER_CONTROLLER.php';
 <header id='header'>
 
 </header>
+
+
 <div id='body'>
 </div>
+
 <footer id='footer'></footer>
 </html>
 

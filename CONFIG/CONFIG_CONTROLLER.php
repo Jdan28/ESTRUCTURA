@@ -4,14 +4,15 @@
 
 *en esta clase se crea una funcion para llamar a los controladores de cada vista
 */
-
+$PROJECT='ESTRUCTURA';
+include_once ($_SERVER['DOCUMENT_ROOT'].'/'.$PROJECT.'/CONFIG/ROUTE_CONFIG.php');
 class create_view {
 public $VISTA;
 public $FORM;
 public $PARAMETRO;
 
 function __construct ($VISTA,$FORM,$PARAMETRO){
-$this->VISTA = '../'.$VISTA;
+$this->VISTA = VIEW.$VISTA;
 $this->FORM = $FORM;
 $this->PARAMETRO = $PARAMETRO;
 }
@@ -59,6 +60,63 @@ $CAMPO_SIN_VALOR++;
 }
 
 }
+
+
+class create_component {
+public $VISTA;
+public $FORM;
+public $PARAMETRO;
+
+function __construct ($VISTA,$FORM,$PARAMETRO){
+$this->VISTA = VIEW_COMPONENT.$VISTA;
+$this->FORM = $FORM;
+$this->PARAMETRO = $PARAMETRO;
+}
+
+function get_VISTA (){
+return $this->VISTA;
+}
+
+
+//validamos  que el formulario cuente con con el formato necesario o que no se haya enviado vacio.
+function VALIDATE_FORM (){
+try {
+$FORM= $this->FORM;
+$PARAMETRO=$this->PARAMETRO;
+  if ($FORM){
+  if ($FORM[$PARAMETRO])
+  $RETURN=$FORM;
+  }
+  else{
+  $RETURN='';
+  }
+
+} catch (Exception $e) {
+
+$RETURN=$e;
+}
+
+
+return $RETURN;
+
+}
+
+//FUNCION PARA VALIDAR QUE LOS INPUTS ESTEN VALIDADOS
+//PENDIENTE
+function VALIDATE_INPUTS (){
+$FORM=$this->$FORM;
+$CAMPO_SIN_VALOR=0;
+foreach ($FORM as $ind => $VALUE) {
+if ($VALUE=="" || $VALUE=="null" || is_null($VALUE)){
+$CAMPO_SIN_VALOR++;
+}else{}
+
+}
+
+}
+
+}
+
 
 
 

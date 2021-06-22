@@ -1,0 +1,15 @@
+.header{
+ background: green;
+
+}
+.body{
+background: yellow;
+}
+
+.login{
+  width: 50%;
+  background: white;
+}
+.footer{
+  background: red;
+}

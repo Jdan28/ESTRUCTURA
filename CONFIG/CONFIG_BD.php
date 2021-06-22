@@ -39,7 +39,68 @@ return $RESULTADO;
 
 }
 
+//con esta funcion checamos los parametros que se le pasan a la funcion de DB_INSERT
+function CHECK_DB_TABLE_PARAMS ($PARAMETROS,$TABLE,$PREFIJO){
 
+  // Conectarse a MySQL
+  $Conection=new mysqli($GLOBALS['HOST'], $GLOBALS['USER'], $GLOBALS['PASS'],$GLOBALS['BD']);
+
+      //verificamos si la tabla existe en la BD
+      if ($Conection){
+
+        //consultamos el nombre de la tabla para saber si existen en la BD
+        $Query_table="select Table_Name from information_schema.TABLES where Table_Name='{$TABLE}'";
+
+        $result_table=mysqli_query($Conection,$Query_table);
+
+        if ($result_table){
+
+
+          while($C_table = mysqli_fetch_array($result_table))
+          {
+            $DATA_TABLE=$C_table['Table_Name'];
+          }
+
+          //Consultamos las columnas de la tabla
+          $Query_FIELDS="SHOW COLUMNS FROM {$TABLE}";
+
+          $result_fields=mysqli_query($Conection,$Query_fields);
+
+          if ($result_fields){
+
+
+            while($C_fields = mysqli_fetch_array($result_fields))
+            {
+              $DATA_FIELDS=$C_fields['Field'];
+            }
+
+          }else{
+
+          return 'La tabla no tiene campos';
+
+          }
+
+
+
+
+        }else{
+
+        return 'La tabla no existe';
+        }
+
+
+//Verificamos que los campos de la BD y los enviados desde QX2 sean los mismos para poder insertar la información en la BD
+
+      //cerramos la conexión
+      mysqli_close($Conection);
+
+    }else{
+
+        return 'Error al conectarse con la BD en CHECK_INSERT';
+
+      }
+
+}
 
 
 //recibe como parametros el query, se ejecuta y retorna los resultados de la BD
@@ -94,10 +155,15 @@ function DB_INSERT($PARAMETROS,$TABLE,$PREFIJO){
           $COMILLA="'";
 
 
-if (CHECK_PREFIJO($PREFIJO,$PARAMETROS)!='SUCCESS'){
+      if (CHECK_PREFIJO($PREFIJO,$PARAMETROS)!='SUCCESS'){
 
-  return 'Error en los campos';
-}
+        return 'Error en los campos';
+      }
+
+      if (CHECK_DB_TABLE_PARAMS($PARAMETROS,$TABLE,$PREFIJO)!='SUCCESS'){
+
+        return 'Error en los campos';
+      }
 
   foreach ($PARAMETROS as $KEY => $VALOR_CAMPO) {
 
@@ -184,6 +250,8 @@ EL CAMPO AL QUE SE VA A REFERIR EL ID O DATO A BUSCAR EN LA BD Y  EL ID DEL CAMP
 //EN LA BD PARA IDENTIFICAR LOS CAMPOS DE ESA TABLA
 function DB_UPDATE($PARAMETROS,$TABLE,$PREFIJO,$CAMPO_REFERENCIA,$ID_BD){
   try {
+
+
           $TOTAL_VARIABLES =count($PARAMETROS);
           $CONSTRUCTOR_SET="";
           $SEPARADOR=',';
