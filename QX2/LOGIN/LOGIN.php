@@ -19,7 +19,7 @@ $DATA_INSERT['USUARIOS']= array(
 
 if ($DATA_INSERT!="" || $DATA_INSERT!=null){
 //DB QUERY
-$RESULT=DB_QUERY_RESULTS("select * from  test_usuarios");
+$RESULT=DB_QUERY_RESULTS("select * from  test_usuaris");
 
 //DB INSERT
 //$RESULT=DB_INSERT($DATA_INSERT['USUARIOS'],'test_usuarios','USU');
