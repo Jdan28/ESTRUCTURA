@@ -3,7 +3,6 @@
 /** @author  Jonathan Trigueros
 *creación:12/06/2021
 */
-
 $GLOBALS['HOST']='localhost';
 $GLOBALS['BD']='test';
 $GLOBALS['USER']='root';
